@@ -46,7 +46,7 @@ jobs:
         ls -l spiral/namespaces/packages
 
     - name: install dependencies
-      uses: actions/checkout@v2
+      ##  uses: actions/checkout@v2
       run: |
         set -x
         echo `pwd` ${{ github.workspace }}
