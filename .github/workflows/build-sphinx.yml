@@ -45,8 +45,8 @@ jobs:
         echo "working dir = ${{ github.workspace }}"
         ls -l spiral/namespaces/packages
 
-    - uses: actions/checkout@v2
     - name: install dependencies
+      uses: actions/checkout@v2
       run: |
         set -x
         echo `pwd` ${{ github.workspace }}
