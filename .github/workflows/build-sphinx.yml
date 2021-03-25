@@ -75,6 +75,7 @@ jobs:
     - name: build the docs
       env:
         SPIRAL_HOME: ${{ github.workspace }}/spiral
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         set -x
         PATH=$PATH:/home/runner/.local/bin
@@ -83,12 +84,13 @@ jobs:
         mkdir build && cd build
         cmake ..
         make Sphinx
+        "../docs/buildsite.sh"
       shell: bash
 
-    - name: Run build script for Sphinx pages
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        set -x
-        "${{ github.workspace }}/fftx/docs/buildsite.sh"
-      shell: bash
+##    - name: Run build script for Sphinx pages
+##      env:
+##        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+##      run: |
+##        set -x
+##        "${{ github.workspace }}/fftx/docs/buildsite.sh"
+##      shell: bash
