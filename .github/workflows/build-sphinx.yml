@@ -20,36 +20,26 @@ jobs:
         repository: spiral-software/spiral-software
         ref: develop
         path: spiral
-      run: |
-        set -x
-        echo "working dir = ${{ github.workspace }}"
-        ls -l spiral
         
     - name: Checkout repo spiral-package-fftx
       uses: actions/checkout@v2
       with:
         repository: spiral-software/spiral-package-fftx
         path: spiral/namespaces/packages/fftx
-      run: |
-        set -x
-        echo "working dir = ${{ github.workspace }}"
-        ls -l spiral/namespaces/packages
         
     - name: Checkout repo spiral-package-simt
       uses: actions/checkout@v2
       with:
         repository: spiral-software/spiral-package-simt
         path: spiral/namespaces/packages/simt
-      run: |
-        set -x
-        echo "working dir = ${{ github.workspace }}"
-        ls -l spiral/namespaces/packages
 
     - name: install dependencies
       ##  uses: actions/checkout@v2
       run: |
         set -x
-        echo `pwd` ${{ github.workspace }}
+        echo "working dir = ${{ github.workspace }}"
+        ls -l spiral
+        ls -l spiral/namespaces/packages
         export DEBIAN_FRONTEND=noninteractive
         sudo apt-get -qqq update
         sudo apt-get install -y build-essential ca-certificates cmake pkg-config wget
