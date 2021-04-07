@@ -1,10 +1,11 @@
 name: build-sphinx-to-gh-pages
 
 env:
-  GITHUB_ACTOR: broderickpt
-  GITHUB_REPOSITORY: broderickpt/fftx
+  GITHUB_ACTOR: spiral-software
+  GITHUB_REPOSITORY: spiral-software/fftx
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+##  For now only re-gen docs when push to "patrick" branch; change to "main" when release is done
 on:
   push:
     branches: [patrick]
@@ -32,6 +33,13 @@ jobs:
       with:
         repository: spiral-software/spiral-package-simt
         path: spiral/namespaces/packages/simt
+        
+##  spiral-package-mpi is still "private" in spiralgen; enable checkout when available
+##    - name: Checkout repo spiral-package-mpi
+##      uses: actions/checkout@v2
+##      with:
+##        repository: spiral-software/spiral-package-mpi
+##        path: spiral/namespaces/packages/mpi
 
     - name: install dependencies
       ##  uses: actions/checkout@v2
@@ -82,15 +90,8 @@ jobs:
         echo $PATH
         cd $SPIRAL_HOME/../fftx
         mkdir build && cd build
-        cmake ..
+        cmake -DFFTX_MAKE_DOCS=True ..
         make Sphinx
         "../docs/buildsite.sh"
       shell: bash
 
-##    - name: Run build script for Sphinx pages
-##      env:
-##        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-##      run: |
-##        set -x
-##        "${{ github.workspace }}/fftx/docs/buildsite.sh"
-##      shell: bash

@@ -1,14 +1,11 @@
 ##
-## Copyright (c) 2018-2020, Carnegie Mellon University
+## Copyright (c) 2018-2021, Carnegie Mellon University
 ## All rights reserved.
 ##
 ## See LICENSE file for full information
 ##
 
 cmake_minimum_required ( VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION} )
-
-find_package(Doxygen REQUIRED)
-find_package(Sphinx REQUIRED)
 
 set (CMAKE_BUILD_TYPE Release  CACHE STRING "Debug, Release, RelWithDebInfo, MinSizeRel")
 
@@ -71,9 +68,10 @@ add_custom_command ( OUTPUT ${SPHINX_INDEX_FILE}
 	COMMENT "Generating documentation with Sphinx")
 
 ##  Named target so we can run the job easily
-add_custom_target ( Sphinx ALL DEPENDS ${SPHINX_INDEX_FILE} )
+add_custom_target ( Sphinx ALL DEPENDS ${SPHINX_INDEX_FILE}
+                    COMMENT "Documentation is available in ${SPHINX_BUILD}" )
 
-include ( GNUInstallDirs )
-install ( DIRECTORY ${SPHINX_BUILD}
-	  DESTINATION ${CMAKE_INSTALL_DOCDIR} )
+##  include ( GNUInstallDirs )
+##  install ( DIRECTORY ${SPHINX_BUILD}
+##  	  DESTINATION ${CMAKE_INSTALL_DOCDIR} )
 
